@@ -1,6 +1,6 @@
 # OOP-Geki (オプゲキ)
 
-OOP-Geki adalah game rhythm yang mencampur elemen dari rhythm game (menekan not berdasarkan irama lagu) dengan bullet hell (menghindari bullet). Pemain akan ditempatkan di dalam sebuah course di mana akan jatuh not musik yang sesuai dengan lagu yang sedang bermain. Pemain harus menekan tombol yang sesuai untuk menekan note tersebut dengan irama yang sesuai dengan lagu sembari menghindari bullet dari Boss di bagian atas play area. 
+OOP-Geki adalah game rhythm yang mencampur elemen dari rhythm game (menekan not berdasarkan irama lagu) dengan bullet hell (menghindari bullet), mirip dengan rhythm game bernama Ongeki. Pemain akan ditempatkan di dalam sebuah course di mana akan jatuh not musik yang sesuai dengan lagu yang sedang bermain. Pemain harus menekan tombol yang sesuai untuk menekan note tersebut dengan irama yang sesuai dengan lagu sembari menghindari bullet dari Boss di bagian atas play area. 
 
 Pemain akan memiliki HP yang akan berkurang jika kena bullet tersebut. Evaluasi dari performa pemain akan ditentukan berdasarkan score: not-not yang ditekan pemain yang sesuai dengan irama lagu dan berapa kali dia terkena oleh bullet saat bermain.
 
