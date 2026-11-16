@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
 
 public class Obstacle extends GameObject {
     private String name;
@@ -31,13 +32,13 @@ public class Obstacle extends GameObject {
         }
     }
 
-    public Obstacle(String name, float x, float y, float width, float height, float speed) {
+    public Obstacle(String name, float x, float y, float width, float height) {
         this.name = name;
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
-        this.speed = speed;
+        this.speed = 120f;
 
         if (whitePixel == null) {
             Pixmap pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
@@ -63,5 +64,9 @@ public class Obstacle extends GameObject {
     public boolean isOutOfBounds() {
         // Check if the obstacle has fallen completely off the bottom of the screen
         return y + height < 0;
+    }
+
+    public Rectangle getHitbox() {
+        return new Rectangle(x, y, width, height);
     }
 }
