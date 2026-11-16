@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Rectangle;
 
 public class Player extends GameObject {
     private String name;
@@ -22,7 +23,7 @@ public class Player extends GameObject {
     private float width, height;
 
     // Speed variable (pixels per second)
-    private float speed = 100f;
+    private float speed = 300f;
 
     public Player(String name){
         this.name = name;
@@ -69,5 +70,9 @@ public class Player extends GameObject {
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.D)) {
             x += speed * Gdx.graphics.getDeltaTime();
         }
+    }
+
+    public Rectangle getHitbox() {
+        return new Rectangle(x, y, width, height);
     }
 }
