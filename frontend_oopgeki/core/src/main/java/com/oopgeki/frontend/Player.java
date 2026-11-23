@@ -20,7 +20,8 @@ public class Player extends GameObject {
     // Position coordinates
     private float x = 30;
     private float y = 50;
-    private float width, height;
+    private float width = 20f;
+    private float height = 20f;
 
     // Speed variable (pixels per second)
     private float speed = 300f;
