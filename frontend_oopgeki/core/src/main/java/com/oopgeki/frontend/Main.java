@@ -6,16 +6,38 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.oopgeki.frontend.commands.Command;
 import com.oopgeki.frontend.commands.InputHandler;
+import com.oopgeki.frontend.systems.SoundManager;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 
 public class Main extends ApplicationAdapter {
     private SpriteBatch batch;
     private List<GameObject> entities;
     private InputHandler inputHandler;
     private Player player;
+
+    private Random random = new Random();
+
+    private float spawnTimer = 0f;
+    private float spawnInterval = 0.5f; // Spawn every 1.5 seconds
+
+    private float obstacleWidth = 30f;
+    private float obstacleHeight = 100f;
+
+    private void spawnObstacle() {
+        float screenWidth = Gdx.graphics.getWidth();
+
+        int lanes = 8;
+
+        float laneWidth = screenWidth / lanes;
+
+        int randomLane = random.nextInt(lanes);
+        float randomX = randomLane * laneWidth + (laneWidth - obstacleWidth) / 2f;
+        entities.add(new Obstacle("Obs", randomX, Gdx.graphics.getHeight(), obstacleWidth, obstacleHeight));
+    }
 
     @Override
     public void create() {
@@ -27,9 +49,10 @@ public class Main extends ApplicationAdapter {
 
         player = new Player("Reimu Hakurei");
         entities.add(player);
-        entities.add(new Obstacle("Antek-Antek Asing", 100, 430, 30f,50f));
-        entities.add(new Obstacle("Antek-Antek Asing", 180, 400, 30f,50f));
-        entities.add(new Obstacle("Antek-Antek Asing", 270, 450, 30f,50f));
+
+        SoundManager.getInstance().init();
+        SoundManager.getInstance().playBGM();
+
     }
 
     @Override
@@ -42,6 +65,14 @@ public class Main extends ApplicationAdapter {
         // Execute commands on the player
         for (Command command : commands) {
             command.execute(player, delta);
+        }
+
+        // Handle obstacle spawning
+        spawnTimer += delta;
+
+        if (spawnTimer >= spawnInterval) {
+            spawnObstacle();
+            spawnTimer = 0f;
         }
 
         // Update entities
@@ -63,6 +94,7 @@ public class Main extends ApplicationAdapter {
                     if (other instanceof Player player) {
                         if (obstacle.getHitbox().overlaps(player.getHitbox())) {
                             System.out.println("Collision detected with obstacle!");
+                            SoundManager.getInstance().playItemPickup();
                             break;
                         }
 

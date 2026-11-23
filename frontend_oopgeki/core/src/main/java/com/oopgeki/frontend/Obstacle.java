@@ -10,7 +10,7 @@ import com.badlogic.gdx.math.Rectangle;
 public class Obstacle extends GameObject {
     private String name;
     private int hp;
-    private float speed;
+    private float speed = 500f;
     private static Texture whitePixel;
     private float x, y;
     private float width, height;
@@ -20,8 +20,7 @@ public class Obstacle extends GameObject {
         this.x = 160;
         this.y = 430;
         this.width = 30f;
-        this.height = 50f;
-        this.speed = 120f;
+        this.height = 100f;
 
         if (whitePixel == null) {
             Pixmap pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
@@ -38,7 +37,6 @@ public class Obstacle extends GameObject {
         this.y = y;
         this.width = width;
         this.height = height;
-        this.speed = 120f;
 
         if (whitePixel == null) {
             Pixmap pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);

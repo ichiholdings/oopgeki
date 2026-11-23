@@ -1,1 +1,3 @@
+bgm_Catastrophe in Bhava-agra.wav
 libgdx.png
+sfx_items_pickup.wav
