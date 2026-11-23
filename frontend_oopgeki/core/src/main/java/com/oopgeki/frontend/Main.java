@@ -23,6 +23,7 @@ public class Main extends ApplicationAdapter {
         entities.add(new Obstacle("Antek-Antek Asing", 100, 430, 30f,50f));
         entities.add(new Obstacle("Antek-Antek Asing", 180, 400, 30f,50f));
         entities.add(new Obstacle("Antek-Antek Asing", 270, 450, 30f,50f));
+        entities.add(new Notes(300, 300, 600, 50f, 35f, 250f));
     }
 
     @Override
