@@ -1,6 +1,14 @@
-import com.oopgeki.frontend.GameObject;
+package com.oopgeki.frontend;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Rectangle;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+
 
 public class Notes extends GameObject {
     private int score;
@@ -9,6 +17,7 @@ public class Notes extends GameObject {
     private float width;
     private float height;
     private float speed;
+    private static Texture whitePixel;
 
     public Notes(int score, float x, float y, float width, float height, float speed){
         this.score = score;
@@ -17,6 +26,13 @@ public class Notes extends GameObject {
         this.width = width;
         this.height = height;
         this.speed = speed;
+        if (whitePixel == null) {
+            Pixmap pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
+            pixmap.setColor(Color.WHITE);
+            pixmap.fill();
+            whitePixel = new Texture(pixmap);
+            pixmap.dispose();
+        }
     }
 
     public void update(){
@@ -24,12 +40,22 @@ public class Notes extends GameObject {
     }
 
     public void render(SpriteBatch batch){
-        batch.setColor(Color.BLUE);
+        batch.setColor(Color.CYAN);
         batch.draw(whitePixel, x, y, width, height);
     }
 
     public Rectangle getHitbox() {
         return new Rectangle(x, y, width, height);
+    }
+
+    public boolean hitboxInRange(){
+        Rectangle currentHitbox = getHitbox();
+        if (currentHitbox.getX() > 20 && currentHitbox.getX() < 60){
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
     public int getScore(){ return score; }

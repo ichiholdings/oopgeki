@@ -2,6 +2,7 @@ package com.oopgeki.frontend;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.oopgeki.frontend.commands.Command;
@@ -37,6 +38,7 @@ public class Main extends ApplicationAdapter {
         int randomLane = random.nextInt(lanes);
         float randomX = randomLane * laneWidth + (laneWidth - obstacleWidth) / 2f;
         entities.add(new Obstacle("Obs", randomX, Gdx.graphics.getHeight(), obstacleWidth, obstacleHeight));
+        entities.add(new Notes(300, randomX, 850, 50f, 35f, 250f));
     }
 
     @Override
@@ -80,25 +82,22 @@ public class Main extends ApplicationAdapter {
             entity.update();
         }
 
-        // Remove off-screen obstacles safely using an Iterator
-        Iterator<GameObject> iterator = entities.iterator();
-        while (iterator.hasNext()) {
-            GameObject GameObject = iterator.next();
-            if (GameObject.isOutOfBounds()) {
-                iterator.remove();
-            }
-
-            // Check if entity is an Obstacle and collides with the Player
-            if (GameObject instanceof Obstacle obstacle) {
+        for (GameObject entity : entities) {
+            if (entity instanceof Obstacle obstacle) {
                 for (GameObject other : entities) {
-                    if (other instanceof Player player) {
-                        if (obstacle.getHitbox().overlaps(player.getHitbox())) {
-                            System.out.println("Collision detected with obstacle!");
-                            SoundManager.getInstance().playItemPickup();
-                            break;
-                        }
-
+                    if (other instanceof Player player && obstacle.getHitbox().overlaps(player.getHitbox())) {
+                        System.out.println("Collision detected with obstacle!");
+                        SoundManager.getInstance().playItemPickup();
+                        break;
                     }
+                }
+            }
+        }
+
+        for (GameObject entity : entities) {
+            if (entity instanceof Notes notes) {
+                if (Gdx.input.isKeyPressed(Input.Keys.Q) && notes.hitboxInRange()){
+                    System.out.println("MASUK");
                 }
             }
         }
