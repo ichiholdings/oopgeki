@@ -57,19 +57,13 @@ public class Player extends GameObject {
         batch.draw(whitePixel, x, y, 20, 20);
     }
 
-    public void move(float amount) {
-        x += amount * speed * Gdx.graphics.getDeltaTime();
+    public void move(float amount, float delta) {
+        x += amount * speed * delta;
     }
 
     @Override
     public void update() {
-        // Handle input directly inside update()
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.A)) {
-            x -= speed * Gdx.graphics.getDeltaTime();
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.D)) {
-            x += speed * Gdx.graphics.getDeltaTime();
-        }
+
     }
 
     public Rectangle getHitbox() {
