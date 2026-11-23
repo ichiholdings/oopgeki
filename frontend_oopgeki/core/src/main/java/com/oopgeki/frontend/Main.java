@@ -22,7 +22,7 @@ public class Main extends ApplicationAdapter {
     private Random random = new Random();
 
     private float spawnTimer = 0f;
-    private float spawnInterval = 0.5f; // Spawn every 1.5 seconds
+    private float spawnInterval = 0.5f;
 
     private float obstacleWidth = 30f;
     private float obstacleHeight = 100f;
@@ -80,24 +80,13 @@ public class Main extends ApplicationAdapter {
             entity.update();
         }
 
-        // Remove off-screen obstacles safely using an Iterator
-        Iterator<GameObject> iterator = entities.iterator();
-        while (iterator.hasNext()) {
-            GameObject GameObject = iterator.next();
-            if (GameObject.isOutOfBounds()) {
-                iterator.remove();
-            }
-
-            // Check if entity is an Obstacle and collides with the Player
-            if (GameObject instanceof Obstacle obstacle) {
+        for (GameObject entity : entities) {
+            if (entity instanceof Obstacle obstacle) {
                 for (GameObject other : entities) {
-                    if (other instanceof Player player) {
-                        if (obstacle.getHitbox().overlaps(player.getHitbox())) {
-                            System.out.println("Collision detected with obstacle!");
-                            SoundManager.getInstance().playItemPickup();
-                            break;
-                        }
-
+                    if (other instanceof Player player && obstacle.getHitbox().overlaps(player.getHitbox())) {
+                        System.out.println("Collision detected with obstacle!");
+                        SoundManager.getInstance().playItemPickup();
+                        break;
                     }
                 }
             }

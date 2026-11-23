@@ -42,6 +42,10 @@ public class InputHandler {
             activeCommands.add(moveCommand);
         }
 
+        if(Gdx.input.isKeyJustPressed(keyBeat1) || Gdx.input.isKeyJustPressed(keyBeat2)){
+            activeCommands.add(HitBeatCommand);
+        }
+
         return activeCommands;
     }
 }

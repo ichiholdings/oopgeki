@@ -1,5 +1,6 @@
 package com.oopgeki.frontend;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public abstract class GameObject {
@@ -10,6 +11,10 @@ public abstract class GameObject {
     public abstract void render(SpriteBatch batch);
 
     public boolean isOutOfBounds() {
-        return false;
+        if (x < 0 || y < 0 || x + width > Gdx.graphics.getWidth() || y + height > Gdx.graphics.getHeight()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
