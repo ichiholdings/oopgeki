@@ -50,7 +50,7 @@ public class Notes extends GameObject {
 
     public boolean hitboxInRange(){
         Rectangle currentHitbox = getHitbox();
-        if (currentHitbox.getX() > 20 && currentHitbox.getX() < 60){
+        if (currentHitbox.getY() > 20 && currentHitbox.getY() < 60){
             return true;
         }
         else {
