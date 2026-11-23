@@ -10,7 +10,6 @@ import com.oopgeki.frontend.commands.InputHandler;
 import com.oopgeki.frontend.systems.SoundManager;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -87,7 +86,6 @@ public class Main extends ApplicationAdapter {
                 for (GameObject other : entities) {
                     if (other instanceof Player player && obstacle.getHitbox().overlaps(player.getHitbox())) {
                         System.out.println("Collision detected with obstacle!");
-                        SoundManager.getInstance().playItemPickup();
                         break;
                     }
                 }
@@ -96,8 +94,9 @@ public class Main extends ApplicationAdapter {
 
         for (GameObject entity : entities) {
             if (entity instanceof Notes notes) {
-                if (Gdx.input.isKeyPressed(Input.Keys.Q) && notes.hitboxInRange()){
+                if (Gdx.input.isKeyJustPressed(Input.Keys.Q) && notes.hitboxInRange()){
                     System.out.println("MASUK");
+                    SoundManager.getInstance().playItemPickup();
                 }
             }
         }
