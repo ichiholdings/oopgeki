@@ -59,22 +59,14 @@ public class Main extends ApplicationAdapter {
 
             // Check if entity is an Obstacle and collides with the Player
             if (GameObject instanceof Obstacle obstacle) {
-                boolean collided = false;
                 for (GameObject other : entities) {
                     if (other instanceof Player player) {
                         if (obstacle.getHitbox().overlaps(player.getHitbox())) {
                             System.out.println("Collision detected with obstacle!");
-                            // Handle damage, game over, or score penalty here
-                            collided = true;
                             break;
                         }
 
                     }
-                }
-                // If it hit the player, remove it immediately so it doesn't spam
-                if (collided) {
-                    iterator.remove();
-                    continue; // Skip the out-of-bounds check for this removed item
                 }
             }
         }
