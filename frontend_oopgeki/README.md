@@ -9,6 +9,10 @@ This project was generated with a template including simple application launcher
 - `core`: Main module with the application logic shared by all platforms.
 - `lwjgl3`: Primary desktop platform using LWJGL3; was called 'desktop' in older docs.
 
+## Charts
+
+Charts are hand-written JSON files in `assets/charts/`, with audio in `assets/audio/`. Adding a song requires no Java changes. See [docs/chart-format.md](docs/chart-format.md) for the format and [docs/chart.schema.json](docs/chart.schema.json) for editor validation.
+
 ## Gradle
 
 This project uses [Gradle](https://gradle.org/) to manage dependencies.

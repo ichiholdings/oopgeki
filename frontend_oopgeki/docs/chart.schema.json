@@ -1,0 +1,126 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://oopgeki.local/chart.schema.json",
+  "title": "Oopgeki chart",
+  "description": "Hand-written chart file for Oopgeki. Loaded and validated by com.oopgeki.frontend.chart.ChartLoader. The schema is deliberately stricter than the loader in one respect: unknown fields are rejected here but silently ignored at runtime, so typos surface in the editor instead of at play time.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["formatVersion", "title", "audio", "bpm"],
+  "properties": {
+    "formatVersion": {
+      "type": "integer",
+      "const": 1,
+      "description": "Chart format version. Must be 1."
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "\\S",
+      "description": "Display name shown in the chart menu. Must contain at least one non-whitespace character."
+    },
+    "artist": {
+      "type": "string",
+      "default": "Unknown",
+      "description": "Display name for the artist. Optional."
+    },
+    "audio": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "\\S",
+      "description": "Path to the audio file, relative to the assets root. Example: \"audio/song.ogg\"."
+    },
+    "bpm": {
+      "type": "number",
+      "exclusiveMinimum": 0,
+      "description": "Quarter-note beats per minute. Must be greater than 0. Constant for the whole chart in format version 1."
+    },
+    "offset": {
+      "type": "number",
+      "minimum": 0,
+      "default": 0,
+      "description": "Seconds into the audio at which beat 0 occurs. Must be >= 0. Omitting it means 0."
+    },
+    "difficulty": {
+      "type": "string",
+      "default": "Normal",
+      "description": "Display name for the difficulty. Optional; not interpreted by the loader."
+    },
+    "noteSpeed": {
+      "type": "number",
+      "exclusiveMinimum": 0,
+      "default": 520,
+      "description": "Suggested note fall speed in pixels per second. Gameplay may override this."
+    },
+    "bulletSpeed": {
+      "type": "number",
+      "exclusiveMinimum": 0,
+      "default": 220,
+      "description": "Default bullet fall speed in pixels per second, used when a bullet omits \"speed\"."
+    },
+    "bulletDamage": {
+      "type": "integer",
+      "minimum": 0,
+      "default": 10,
+      "description": "Default damage, used when a bullet omits \"damage\"."
+    },
+    "notes": {
+      "type": "array",
+      "default": [],
+      "description": "Note events. May be omitted; may not be null.",
+      "items": { "$ref": "#/$defs/noteEvent" }
+    },
+    "bullets": {
+      "type": "array",
+      "default": [],
+      "description": "Bullet events. May be omitted; may not be null.",
+      "items": { "$ref": "#/$defs/bulletEvent" }
+    }
+  },
+  "$defs": {
+    "noteEvent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["beat", "lane"],
+      "description": "A note that must be hit as it reaches the hit line. Duplicate (beat, lane) pairs are rejected at load time.",
+      "properties": {
+        "beat": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Beat at which the note reaches the hit line. Fractional values are allowed."
+        },
+        "lane": {
+          "type": "string",
+          "enum": ["LEFT", "RIGHT"],
+          "description": "LEFT is the S key; RIGHT is the D key."
+        }
+      }
+    },
+    "bulletEvent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["beat", "x"],
+      "description": "A bullet that falls straight down at a fixed horizontal position.",
+      "properties": {
+        "beat": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Beat at which the bullet crosses the player's row (the danger line), not when it spawns."
+        },
+        "x": {
+          "type": "number",
+          "description": "Horizontal center in game coordinates. Fixed for the bullet's lifetime. Not validated against the screen width."
+        },
+        "speed": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "description": "Fall speed in pixels per second. Defaults to the chart's bulletSpeed."
+        },
+        "damage": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Damage on hit. Defaults to the chart's bulletDamage."
+        }
+      }
+    }
+  }
+}

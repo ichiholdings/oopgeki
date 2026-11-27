@@ -1,0 +1,13 @@
+{
+  "formatVersion": 1,
+  "title": "Test Chart",
+  "audio": "audio/test.ogg",
+  "bpm": 120,
+  "offset": 0.5,
+  "notes": [
+    { "beat": 4.0, "lane": "LEFT" }
+  ],
+  "bullets": [
+    { "beat": 8.0, "x": 240 }
+  ]
+}
